@@ -1,0 +1,40 @@
+{
+	"preferGlobal": true,
+	"name": "@derhuerst/technical-docs-cli",
+	"description": "Render technical markdown docs as HTML. Opinionated.",
+	"version": "1.0.0",
+	"bin": {
+		"build-technical-doc": "./cli.js"
+	},
+	"main": "index.js",
+	"files": [
+		"cli.js",
+		"index.js",
+		"lib"
+	],
+	"keywords": [
+		"markdown",
+		"render",
+		"html",
+		"docs",
+		"documentation",
+		"cli"
+	],
+	"author": "Jannis R <mail@jannisr.de>",
+	"homepage": "https://github.com/derhuerst/technical-docs-cli",
+	"repository": "derhuerst/technical-docs-cli",
+	"bugs": "https://github.com/derhuerst/technical-docs-cli/issues",
+	"license": "ISC",
+	"engines": {
+		"node": ">=12"
+	},
+	"dependencies": {
+		"mri": "^1.1.6"
+	},
+	"devDependencies": {
+	},
+	"scripts": {
+		"test": "./cli.js <example.md >/dev/null",
+		"prepublishOnly": "npm test"
+	}
+}
