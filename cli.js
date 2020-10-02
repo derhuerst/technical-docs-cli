@@ -14,7 +14,12 @@ const argv = mri(process.argv.slice(2), {
 if (argv.help || argv.h) {
 	process.stdout.write(`
 Usage:
-    build-technical-doc
+    build-technical-doc [options]
+Options:
+    --syntax-stylesheet <name>
+        Print a syntax highlighting stylesheet from highlight.js.
+    --syntax-stylesheet-url
+        Link to the syntax highlighting stylesheet. Default: ./syntax.css
 Examples:
     cat readme.md | build-technical-doc >index.html
 \n`)
@@ -34,7 +39,19 @@ const showError = (err) => {
 	process.exit(1)
 }
 
-const pipeline = createPipeline()
+if (argv['syntax-stylesheet']) {
+	const {readFileSync} = require('fs')
+
+	const stylesheet = argv['syntax-stylesheet']
+	const path = require.resolve(`highlight.js/styles/${stylesheet}.css`)
+	const css = readFileSync(path, {encoding: 'utf8'})
+	process.stdout.write(css)
+	process.exit()
+}
+
+const pipeline = createPipeline({
+	syntaxStylesheetUrl: argv['syntax-stylesheet-url'] || './syntax.css',
+})
 
 process.stdin
 .once('error', showError)

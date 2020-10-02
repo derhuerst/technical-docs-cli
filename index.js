@@ -10,7 +10,11 @@ const bash = require('highlight.js/lib/languages/bash')
 const html = require('rehype-stringify')
 const asHTMLDocument = require('./lib/as-html-doc')
 
-const createPipeline = () => {
+const createPipeline = (cfg) => {
+	const {
+		syntaxStylesheetUrl,
+	} = cfg
+
 	return unified()
 	.use(markdown)
 	.use(remark2rehype)
@@ -29,7 +33,9 @@ const createPipeline = () => {
 			'shell': bash,
 		}),
 	})
-	.use(asHTMLDocument)
+	.use(asHTMLDocument, {
+		syntaxStylesheetUrl,
+	})
 	.use(html)
 }
 
