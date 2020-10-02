@@ -8,15 +8,20 @@ const link = require('rehype-autolink-headings')
 const highlight = require('rehype-highlight')
 const bash = require('highlight.js/lib/languages/bash')
 const html = require('rehype-stringify')
+const changeMdLinks = require('./lib/change-md-links')
 const asHTMLDocument = require('./lib/as-html-doc')
 
 const createPipeline = (cfg) => {
 	const {
 		syntaxStylesheetUrl,
+		changeMdLink,
 	} = cfg
 
 	return unified()
 	.use(markdown)
+	.use(changeMdLinks, {
+		changeMdLink,
+	})
 	.use(remark2rehype)
 	.use(slug)
 	.use(link, {

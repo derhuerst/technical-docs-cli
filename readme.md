@@ -23,10 +23,12 @@ npm install @derhuerst/technical-docs-cli
 Usage:
     build-technical-doc [options]
 Options:
-	--syntax-stylesheet <name>
-		Print a syntax highlighting stylesheet from highlight.js.
-	--syntax-stylesheet-url
-		Link to the syntax highlighting stylesheet. Default: ./syntax.css
+    --syntax-stylesheet <name>
+        Print a syntax highlighting stylesheet from highlight.js.
+    --syntax-stylesheet-url
+        Link to the syntax highlighting stylesheet. Default: ./syntax.css
+    --change-md-links
+        Change `*.md` links to `.html`. Default: true
 Examples:
-	cat readme.md | build-technical-doc >index.html
+    cat readme.md | build-technical-doc >index.html
 ```

@@ -36,4 +36,4 @@ curl 'https://v5.db.transport.rest/locations?poi=false&addresses=false&query=sü
 ]
 ```
 
-These are the basics. Check the full [API docs](api.md) for all features!
+These are the basics. Check the full [API docs](./api.md#foo) for all features!

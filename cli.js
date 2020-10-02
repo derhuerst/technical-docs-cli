@@ -20,6 +20,8 @@ Options:
         Print a syntax highlighting stylesheet from highlight.js.
     --syntax-stylesheet-url
         Link to the syntax highlighting stylesheet. Default: ./syntax.css
+    --change-md-links
+        Change \`*.md\` links to \`.html\`. Default: true
 Examples:
     cat readme.md | build-technical-doc >index.html
 \n`)
@@ -51,6 +53,9 @@ if (argv['syntax-stylesheet']) {
 
 const pipeline = createPipeline({
 	syntaxStylesheetUrl: argv['syntax-stylesheet-url'] || './syntax.css',
+	changeMdLink: argv['change-md-links'] === 'false'
+		? () => false
+		: () => true,
 })
 
 process.stdin
