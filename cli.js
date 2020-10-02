@@ -16,7 +16,7 @@ if (argv.help || argv.h) {
 Usage:
     build-technical-doc
 Examples:
-	cat readme.md | build-technical-doc >index.html
+    cat readme.md | build-technical-doc >index.html
 \n`)
 	process.exit(0)
 }
@@ -26,4 +26,19 @@ if (argv.version || argv.v) {
 	process.exit(0)
 }
 
-// todo
+const stream = require('unified-stream')
+const createPipeline = require('.')
+
+const showError = (err) => {
+	console.error(err)
+	process.exit(1)
+}
+
+const pipeline = createPipeline()
+
+process.stdin
+.once('error', showError)
+.pipe(stream(pipeline))
+.once('error', showError)
+.pipe(process.stdout)
+.once('error', showError)
