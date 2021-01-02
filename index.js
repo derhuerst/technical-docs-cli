@@ -3,6 +3,7 @@
 const unified = require('unified')
 const markdown = require('remark-parse')
 const remark2rehype = require('remark-rehype')
+const raw = require('rehype-raw')
 const slug = require('rehype-slug')
 const link = require('rehype-autolink-headings')
 const highlight = require('rehype-highlight')
@@ -15,6 +16,7 @@ const createPipeline = (cfg) => {
 	const {
 		syntaxStylesheetUrl,
 		changeMdLink,
+		inlineHtml,
 	} = cfg
 
 	return unified()
@@ -22,7 +24,8 @@ const createPipeline = (cfg) => {
 	.use(changeMdLinks, {
 		changeMdLink,
 	})
-	.use(remark2rehype)
+	.use(remark2rehype, {allowDangerousHtml: inlineHtml})
+	.use(raw)
 	.use(slug)
 	.use(link, {
 		behaviour: 'append',

@@ -7,7 +7,8 @@ const pkg = require('./package.json')
 const argv = mri(process.argv.slice(2), {
 	boolean: [
 		'help', 'h',
-		'version', 'v'
+		'version', 'v',
+		'inline-html',
 	]
 })
 
@@ -22,6 +23,8 @@ Options:
         Link to the syntax highlighting stylesheet. Default: ./syntax.css
     --change-md-links
         Change \`*.md\` links to \`.html\`. Default: true
+    --inline-html
+        Accept dangerous inline HTML? Default: false
 Examples:
     cat readme.md | build-technical-doc >index.html
 \n`)
@@ -56,6 +59,7 @@ const pipeline = createPipeline({
 	changeMdLink: argv['change-md-links'] === 'false'
 		? () => false
 		: () => true,
+	inlineHtml: !!argv['inline-html'],
 })
 
 process.stdin
