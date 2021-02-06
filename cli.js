@@ -58,7 +58,7 @@ const pipeline = createPipeline({
 	syntaxStylesheetUrl: argv['syntax-stylesheet-url'] || './syntax.css',
 	changeMdLink: argv['change-md-links'] === 'false'
 		? () => false
-		: () => true,
+		: null,
 	inlineHtml: !!argv['inline-html'],
 })
 

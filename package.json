@@ -2,7 +2,7 @@
 	"preferGlobal": true,
 	"name": "@derhuerst/technical-docs-cli",
 	"description": "Render technical markdown docs as HTML. Opinionated.",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"bin": {
 		"build-technical-doc": "./cli.js"
 	},
