@@ -47,10 +47,12 @@
 		"unist-util-select": "^3.0.1"
 	},
 	"devDependencies": {
+		"eslint": "^7.32.0"
 	},
 	"scripts": {
+		"lint": "eslint .",
 		"test": "node test.js",
 		"test-example": "./cli.js <example.md >/dev/null",
-		"prepublishOnly": "npm test && npm run test-example"
+		"prepublishOnly": "npm run lint && npm test && npm run test-example"
 	}
 }
