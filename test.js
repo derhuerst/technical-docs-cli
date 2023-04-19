@@ -13,10 +13,17 @@ const t1 = `\
 - [external absolute](https://github.com/derhuerst/technical-docs-cli/blob/foo/bar/readme.md)
 `
 
-const pipeline = createPipeline({})
+const pipeline = createPipeline({
+	additionalHeadChildren: (h) => [
+		h('meta', {property: 'foo', content: 'bar'}),
+	],
+})
 pipeline.process(t1, (err, file) => {
 	if (err) failWithError(err)
 
+	ok(file.contents.includes(
+		'<meta property="foo" content="bar">',
+	), 'output does not include custom element in <head>')
 	ok(file.contents.includes(
 		'foo/readme.html'
 	), 'output does not contain internal relative link')

@@ -14,7 +14,6 @@ const asHTMLDocument = require('./lib/as-html-doc')
 
 const createPipeline = (cfg) => {
 	const {
-		syntaxStylesheetUrl,
 		changeMdLink,
 		inlineHtml,
 	} = cfg
@@ -41,9 +40,7 @@ const createPipeline = (cfg) => {
 			'shell': bash,
 		}),
 	})
-	.use(asHTMLDocument, {
-		syntaxStylesheetUrl,
-	})
+	.use(asHTMLDocument, cfg)
 	.use(html)
 }
 
