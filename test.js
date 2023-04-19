@@ -1,7 +1,9 @@
 'use strict'
 
-const {ok} = require('assert')
+const {ok, strictEqual} = require('assert')
+const {readFileSync} = require('fs')
 const createPipeline = require('.')
+const {determineSyntaxStylesheetPath} = createPipeline
 
 const failWithError = (err) => {
 	console.error(err)
@@ -31,3 +33,9 @@ pipeline.process(t1, (err, file) => {
 		'https://github.com/derhuerst/technical-docs-cli/blob/foo/bar/readme.md'
 	), 'output does not contain external absolute link')
 })
+
+{
+	const githubCssPath = determineSyntaxStylesheetPath('github')
+	strictEqual(typeof githubCssPath, 'string', 'determineSyntaxStylesheetPath() must return a string')
+	readFileSync(githubCssPath)
+}

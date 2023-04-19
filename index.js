@@ -44,4 +44,10 @@ const createPipeline = (cfg) => {
 	.use(html)
 }
 
+// todo: make async
+const determineSyntaxStylesheetPath = (name) => {
+	return require.resolve(`highlight.js/styles/${name}.css`)
+}
+
+createPipeline.determineSyntaxStylesheetPath = determineSyntaxStylesheetPath
 module.exports = createPipeline

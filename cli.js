@@ -38,6 +38,7 @@ if (argv.version || argv.v) {
 
 const stream = require('unified-stream')
 const createPipeline = require('.')
+const {determineSyntaxStylesheetPath} = createPipeline
 
 const showError = (err) => {
 	console.error(err)
@@ -48,7 +49,7 @@ if (argv['syntax-stylesheet']) {
 	const {readFileSync} = require('fs')
 
 	const stylesheet = argv['syntax-stylesheet']
-	const path = require.resolve(`highlight.js/styles/${stylesheet}.css`)
+	const path = determineSyntaxStylesheetPath(stylesheet)
 	const css = readFileSync(path, {encoding: 'utf8'})
 	process.stdout.write(css)
 	process.exit()
