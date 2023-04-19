@@ -3,6 +3,7 @@
 const {ok, strictEqual} = require('assert')
 const {readFileSync} = require('fs')
 const createPipeline = require('.')
+const {createMarkdownRenderer} = createPipeline
 const {determineSyntaxStylesheetPath} = createPipeline
 
 const failWithError = (err) => {
@@ -33,6 +34,27 @@ pipeline.process(t1, (err, file) => {
 		'https://github.com/derhuerst/technical-docs-cli/blob/foo/bar/readme.md'
 	), 'output does not contain external absolute link')
 })
+
+{
+	const renderer = createMarkdownRenderer({
+		additionalHeadChildren: (h) => [
+			h('meta', {property: 'foo', content: 'bar'}),
+		],
+	})
+	renderer.end(t1)
+
+	renderer.once('error', failWithError)
+	let res = ''
+	renderer.on('data', (chunk) => {
+		res += chunk
+	})
+	renderer.once('end', () => {
+		console.error('res', res) // todo: remove
+		ok(res.includes(
+			'<link rel="stylesheet" href="/foo.csv"',
+		), 'output does not include custom link stylesheet link')
+	})
+}
 
 {
 	const githubCssPath = determineSyntaxStylesheetPath('github')

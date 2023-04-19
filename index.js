@@ -9,6 +9,7 @@ const link = require('rehype-autolink-headings')
 const highlight = require('rehype-highlight')
 const bash = require('highlight.js/lib/languages/bash')
 const html = require('rehype-stringify')
+const stream = require('unified-stream')
 const changeMdLinks = require('./lib/change-md-links')
 const asHTMLDocument = require('./lib/as-html-doc')
 
@@ -44,10 +45,16 @@ const createPipeline = (cfg) => {
 	.use(html)
 }
 
+const createMarkdownRenderer = (opt = {}) => {
+	const pipeline = createPipeline(opt)
+	return stream(pipeline)
+}
+
 // todo: make async
 const determineSyntaxStylesheetPath = (name) => {
 	return require.resolve(`highlight.js/styles/${name}.css`)
 }
 
+createPipeline.createMarkdownRenderer = createMarkdownRenderer
 createPipeline.determineSyntaxStylesheetPath = determineSyntaxStylesheetPath
 module.exports = createPipeline

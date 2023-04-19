@@ -36,9 +36,9 @@ if (argv.version || argv.v) {
 	process.exit(0)
 }
 
-const stream = require('unified-stream')
 const createPipeline = require('.')
 const {determineSyntaxStylesheetPath} = createPipeline
+const {createMarkdownRenderer} = createPipeline
 
 const showError = (err) => {
 	console.error(err)
@@ -55,7 +55,7 @@ if (argv['syntax-stylesheet']) {
 	process.exit()
 }
 
-const pipeline = createPipeline({
+const renderer = createMarkdownRenderer({
 	syntaxStylesheetUrl: argv['syntax-stylesheet-url'] || './syntax.css',
 	changeMdLink: argv['change-md-links'] === 'false'
 		? () => false
@@ -65,7 +65,7 @@ const pipeline = createPipeline({
 
 process.stdin
 .once('error', showError)
-.pipe(stream(pipeline))
+.pipe(renderer)
 .once('error', showError)
 .pipe(process.stdout)
 .once('error', showError)
