@@ -1,10 +1,10 @@
-'use strict'
-
-const {ok, strictEqual} = require('assert')
-const {readFileSync} = require('fs')
-const createPipeline = require('.')
-const {createMarkdownRenderer} = createPipeline
-const {determineSyntaxStylesheetPath} = createPipeline
+import {ok, strictEqual} from 'node:assert/strict'
+import {readFileSync} from 'node:fs'
+import {
+	createPipeline,
+	createMarkdownRenderer,
+	determineSyntaxStylesheetPath,
+} from './index.js'
 
 const failWithError = (err) => {
 	console.error(err)
@@ -56,17 +56,16 @@ pipeline.process(t1, (err, file) => {
 })
 
 {
-	render({
+	const res = await render({
 		syntaxStylesheetUrl: '/foo.csv',
 	}, t1)
-	.then((res) => {
+	{
 		ok(res.includes(
 			'<link rel="stylesheet" href="/foo.csv"',
 		), 'output does not include custom link stylesheet link')
 
 		console.log('renderer Stream seems to work ✔️')
-	})
-	.catch(failWithError)
+	}
 }
 
 {

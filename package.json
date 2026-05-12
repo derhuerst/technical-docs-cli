@@ -6,6 +6,7 @@
 	"bin": {
 		"build-technical-doc": "./cli.js"
 	},
+	"type": "module",
 	"main": "index.js",
 	"files": [
 		"cli.js",

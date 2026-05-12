@@ -1,8 +1,6 @@
 #!/usr/bin/env node
-'use strict'
-
-const mri = require('mri')
-const pkg = require('./package.json')
+import mri from 'mri'
+import pkg from './package.json' with {type: 'json'}
 
 const argv = mri(process.argv.slice(2), {
 	boolean: [
@@ -36,9 +34,12 @@ if (argv.version || argv.v) {
 	process.exit(0)
 }
 
-const createPipeline = require('.')
-const {determineSyntaxStylesheetPath} = createPipeline
-const {createMarkdownRenderer} = createPipeline
+import {readFileSync} from 'node:fs'
+import {
+	createPipeline,
+	determineSyntaxStylesheetPath,
+	createMarkdownRenderer,
+} from './index.js'
 
 const showError = (err) => {
 	console.error(err)
@@ -46,8 +47,6 @@ const showError = (err) => {
 }
 
 if (argv['syntax-stylesheet']) {
-	const {readFileSync} = require('fs')
-
 	const stylesheet = argv['syntax-stylesheet']
 	const path = determineSyntaxStylesheetPath(stylesheet)
 	const css = readFileSync(path, {encoding: 'utf8'})

@@ -1,17 +1,15 @@
-'use strict'
-
-const unified = require('unified')
-const markdown = require('remark-parse')
-const remark2rehype = require('remark-rehype')
-const raw = require('rehype-raw')
-const slug = require('rehype-slug')
-const link = require('rehype-autolink-headings')
-const highlight = require('rehype-highlight')
-const bash = require('highlight.js/lib/languages/bash')
-const html = require('rehype-stringify')
-const stream = require('unified-stream')
-const changeMdLinks = require('./lib/change-md-links')
-const asHTMLDocument = require('./lib/as-html-doc')
+import unified from 'unified'
+import markdown from 'remark-parse'
+import remark2rehype from 'remark-rehype'
+import raw from 'rehype-raw'
+import slug from 'rehype-slug'
+import link from 'rehype-autolink-headings'
+import highlight from 'rehype-highlight'
+import bash from 'highlight.js/lib/languages/bash'
+import html from 'rehype-stringify'
+import stream from 'unified-stream'
+import {changeMdLinks} from './lib/change-md-links.js'
+import {asHTMLDocument} from './lib/as-html-doc.js'
 
 const createPipeline = (cfg) => {
 	const {
@@ -52,9 +50,12 @@ const createMarkdownRenderer = (opt = {}) => {
 
 // todo: make async
 const determineSyntaxStylesheetPath = (name) => {
-	return require.resolve(`highlight.js/styles/${name}.css`)
+	const url = import.meta.resolve(`highlight.js/styles/${name}.css`)
+	return new URL(url).pathname
 }
 
-createPipeline.createMarkdownRenderer = createMarkdownRenderer
-createPipeline.determineSyntaxStylesheetPath = determineSyntaxStylesheetPath
-module.exports = createPipeline
+export {
+	createPipeline,
+	createMarkdownRenderer,
+	determineSyntaxStylesheetPath,
+}
