@@ -47,7 +47,9 @@
 		"unist-util-select": "^3.0.1"
 	},
 	"devDependencies": {
-		"eslint": "^7.32.0"
+		"@eslint/js": "^10.0.1",
+		"eslint": "^10.3.0",
+		"globals": "^17.6.0"
 	},
 	"scripts": {
 		"lint": "eslint .",
