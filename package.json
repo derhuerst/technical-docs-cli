@@ -26,7 +26,7 @@
 	"bugs": "https://github.com/derhuerst/technical-docs-cli/issues",
 	"license": "ISC",
 	"engines": {
-		"node": ">=12"
+		"node": ">=24"
 	},
 	"dependencies": {
 		"hast-util-select": "^4.0.0",
