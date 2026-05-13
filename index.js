@@ -3,6 +3,7 @@ import markdown from 'remark-parse'
 import remark2rehype from 'remark-rehype'
 import raw from 'rehype-raw'
 import slug from 'rehype-slug'
+import {rehypeGithubAlerts as alerts} from 'rehype-github-alerts'
 import link from 'rehype-autolink-headings'
 import highlight from 'rehype-highlight'
 import bash from 'highlight.js/lib/languages/bash'
@@ -25,6 +26,7 @@ const createPipeline = (cfg) => {
 	.use(remark2rehype, {allowDangerousHtml: inlineHtml})
 	.use(raw)
 	.use(slug)
+	.use(alerts)
 	.use(link, {
 		behaviour: 'append',
 		properties: {

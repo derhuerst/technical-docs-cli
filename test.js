@@ -34,6 +34,20 @@ const t1 = `\
 - [external absolute](https://github.com/derhuerst/technical-docs-cli/blob/foo/bar/readme.md)
 `
 
+const t2 = `\
+# foo
+
+> [!IMPORTANT]
+> bar baz
+
+## hello world
+
+> [!CAUTION]
+> don't do this!
+
+> quooote
+`
+
 const pipeline = createPipeline({
 	additionalHeadChildren: (h) => [
 		h('meta', {property: 'foo', content: 'bar'}),
@@ -65,6 +79,18 @@ pipeline.process(t1, (err, file) => {
 		), 'output does not include custom link stylesheet link')
 
 		console.log('renderer Stream seems to work ✔️')
+	}
+}
+
+{
+	const res = await render({}, t2)
+	{
+		ok(
+			res.match(/<blockquote>\s*<p>quooote<\/p>\s*<\/blockquote>/),
+			'output does not contain exact HTML string with blockquotes',
+		)
+
+		console.log('GitHub-style blockquote alerts seem to work ✔️')
 	}
 }
 
