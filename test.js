@@ -56,13 +56,14 @@ const pipeline = createPipeline({
 pipeline.process(t1, (err, file) => {
 	if (err) failWithError(err)
 
-	ok(file.contents.includes(
+	const content = file.toString()
+	ok(content.includes(
 		'<meta property="foo" content="bar">',
 	), 'output does not include custom element in <head>')
-	ok(file.contents.includes(
+	ok(content.includes(
 		'foo/readme.html'
 	), 'output does not contain internal relative link')
-	ok(file.contents.includes(
+	ok(content.includes(
 		'https://github.com/derhuerst/technical-docs-cli/blob/foo/bar/readme.md'
 	), 'output does not contain external absolute link')
 
