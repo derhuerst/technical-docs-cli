@@ -36,7 +36,6 @@ if (argv.version || argv.v) {
 
 import {readFileSync} from 'node:fs'
 import {
-	createPipeline,
 	determineSyntaxStylesheetPath,
 	createMarkdownRenderer,
 } from './index.js'
